@@ -29,7 +29,13 @@ class Register extends Component {
 
     return (
       <Segment basic>
-        <Header as='h2' textAlign='center'>DPLspace Registration</Header>
+        <Header 
+          as='h1' 
+          textAlign='center'  
+          color ='purple'
+          block>
+          DPLspace Registration
+          </Header>
         <Form onSubmit={this.handleSubmit}>
           <Form.Field>
             <label htmlFor='email'>Email</label>

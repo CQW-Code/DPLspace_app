@@ -1,65 +1,73 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
+import {setHeaders} from '../actions/headers';
+import {Link} from 'react-router-dom';
 import {
   Divider,
-  Header,
   Image,
-  Container,
-  Table,
+  Card,
+  Header,
 } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
 
 class MemberView extends React.Component {
-  state = { }
+  
+  state = {members: [] } 
+  componentDidMount() {
+    const {dispatch} = this.props;
+    axios.get('/api/members')
+      .then(res => {
+        dispatch(setHeaders(res.headers))
+        this.setState({members: res.data})
+      })
+  }
+render() {
 
-
-
-  render() {
-    const { member = {}} = this.props;
+    const { members} = this.state;
     return (
-      <Container>
-        <Link to="/members">View All Members</Link>
-        
-            <div>
-              <Header as="h3" textAlign="center">{member.name}</Header>
-              <Image src={member.avatar} />
-              <Table definition>
-                <Table.Header>
-                  <Table.Row>
-                    <Table.HeaderCell />
-                    <Table.HeaderCell />
-                  </Table.Row>
-                </Table.Header>
-    
-                <Table.Body>
-                  <Table.Row>
-                    <Table.Cell>Nickname</Table.Cell>
-                    <Table.Cell>{member.nickname}</Table.Cell>
-                  </Table.Row>
-                  <Table.Row>
-                    <Table.Cell>Location</Table.Cell>
-                    <Table.Cell>{member.location}</Table.Cell>
-                  </Table.Row>
-                  <Table.Row>
-                    <Table.Cell>School</Table.Cell>
-                    <Table.Cell>{member.school}</Table.Cell>
-                  </Table.Row>
-                  <Table.Row>
-                    <Table.Cell>Occupation</Table.Cell>
-                    <Table.Cell>${member.occupation}</Table.Cell>
-                  </Table.Row>
-                </Table.Body>
-              </Table>
-            </div>
+      <div>
+      <Header 
+        as='h1' 
+        size='huge' 
+        color='violet' 
+        textAlign='center'
+        block>
+        DPLspace Members
+      </Header>
+      <Link to='./my_friends'>My Friends</Link> <br/>
+      <Link to='/'>Home</Link>
+        <Card.Group  itemsPerRow={3}>
+        { members.map( member =>
+            <Card color='purple' key={member.id}>
+              <Card.Content>
+                <Image src={member.avatar} />
+                <Divider />
+                <Card.Header>
+                   {member.name}
+                   </Card.Header>
+                  <hr />
+                   {member.nickname}
+                  <br/>
+                  <Card.Content>
+                    From: {member.location}
+                    </Card.Content>
+                     
+                <Card.Content>
+                  School: {member.school} <br/>
+                  </Card.Content>
+                  <Card.Content>
+                  Occupation: {member.occupation}
+                </Card.Content>
+              </Card.Content>
+            </Card>
+          )
         }
-        
-      </Container>
+      </Card.Group>
+      </div>
     )
   }
 }
 
-const mapStateToProps = (state, props) => {
-  return { member: state.members.find( m => m.id === parseInt(props.match.params.id ))}
-}
 
-export default connect(mapStateToProps)(MemberView);
+
+export default connect()(MemberView);

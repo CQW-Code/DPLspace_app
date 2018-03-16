@@ -4,36 +4,34 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import {setHeaders} from '../actions/headers';
 import {Link} from 'react-router-dom';
+import '../cards.css';
 
 class Home extends Component {
-  state = {friends: []}
+  state = {members: []}
   componentDidMount() {
     const {dispatch} = this.props;
-    axios.get('/api/friends')
+    axios.get('/api/members')
       .then(res => {
         dispatch(setHeaders(res.headers))
-        this.setState({friends: res.data})
+        this.setState({members: res.data})
       })
   }
   render() {
     return (
       <div>
-      <Header as='h2' textAlign='center'>DPLspace</Header>
-      <Link to='./my_friends'>My Friends</Link>
-      <Card className="cards-root">
-          { this.state.friends.map( friend =>
-            <Card 
-              key={friend.id}
-            >  
-                <h2>{friend.name}</h2>
-                <Image src={friend.avatar} />
-                <h3>{friend.location}</h3>
-              </Card>
-            )
-          }
-        </Card>
+      <Header 
+        as='h1' 
+        size='huge' 
+        color='violet' 
+        textAlign='center'
+        block>
+        DPLspace
+      </Header>
+      <Link to='./my_friends'>My Friends</Link> <br/>
+      <Link to='./members'>View Members</Link>
+       
       </div>
-    );
+    )
   }
 }
 
