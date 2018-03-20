@@ -13,7 +13,7 @@ class Register extends Component {
     const { dispatch, history } = this.props;
     if (password === passwordConfirmation) {
       dispatch(registerUser(email, password, passwordConfirmation, history));
-    } else dispatch(setFlash('Passwords do not match! Please try again', 'red'));
+    } else dispatch(setFlash('Passwords do not match!, please try again', 'red'));
   }
 
   handleChange = event => {
@@ -29,6 +29,7 @@ class Register extends Component {
 
     return (
       <Segment basic>
+<<<<<<< HEAD
         <Header 
           as='h1' 
           textAlign='center'  
@@ -36,6 +37,9 @@ class Register extends Component {
           block>
           DPLspace Registration
           </Header>
+=======
+        <Header as='h1' textAlign='center'>Register Component</Header>
+>>>>>>> slightly revamped
         <Form onSubmit={this.handleSubmit}>
           <Form.Field>
             <label htmlFor='email'>Email</label>

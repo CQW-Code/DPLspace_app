@@ -6,17 +6,37 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-200.times do
-  name=  Faker::Name.name
-  nickname = Faker::Twitter.screen_name
-  location = Faker::Address.state
-  school = Faker::University.name
-  occupation =Faker::Job.position
-  avatar = Faker::Avatar.image(name, '50x50', 'png', 'set4')
-  Member.create(name: name, 
-                nickname: nickname, 
-                location: location, 
-                school: school, 
-                occupation: occupation,
-                avatar: avatar)
-  end
+#100.times do
+ # user = User.create!(
+  #  name: Faker::Name.name,
+   # image: Faker::Placeholdit.image("50x50", 'jpg'),
+    #email: Faker::Internet.email,
+    #password: 'password',
+    #member: Member.create(
+    #  name: Faker::Name.name,
+    #  nickname: Faker::Internet.username,
+    #  avatar: Faker::Placeholdit.image("50x50", 'jpg'),
+    #  location: Faker::Address.state,
+    #  school: Faker::University.name,
+    #  occupation: Faker::Job.position)
+  #)
+  #  end
+  
+  user = User.create!(
+    name: 'Ducky',
+    image: Faker::Avatar.image,
+    email: 'Ducky@gallaudet.edu',
+    password: 'password',
+    member: Member.create(
+      name: 'Chris',
+      nickname: 'Ducky',
+      avatar: Faker::Placeholdit.image("50x50", 'jpg'),
+      location: 'North Carolina',
+      school: 'Gallaudet University',
+      occupation: 'QA Tester/Student')
+    
+  )
+
+      
+
+    
